@@ -11,15 +11,14 @@
         <action
             android:id="@+id/action_homeFragment_to_addTaskFragment"
             app:destination="@id/addTaskFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_updateTaskFragment"
+            app:destination="@id/updateTaskFragment" />
     </fragment>
     <fragment
         android:id="@+id/addTaskFragment"
         android:name="com.example.room_1.ui.add.AddTaskFragment"
-        android:label="AddTaskFragment">
-        <action
-            android:id="@+id/action_addTaskFragment_to_updateTaskFragment"
-            app:destination="@id/updateTaskFragment" />
-    </fragment>
+        android:label="AddTaskFragment"/>
     <fragment
         android:id="@+id/updateTaskFragment"
         android:name="com.example.room_1.ui.update.UpdateTaskFragment"

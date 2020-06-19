@@ -25,8 +25,6 @@ abstract class AppDataBase : RoomDatabase() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
                     }
-                    // perform default method here
-
                 }).fallbackToDestructiveMigration().build()
 
         }

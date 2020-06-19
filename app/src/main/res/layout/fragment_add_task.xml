@@ -19,7 +19,7 @@
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline" />
 
         <EditText
-            android:id="@+id/editTextTask"
+            android:id="@+id/editName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="task?" />

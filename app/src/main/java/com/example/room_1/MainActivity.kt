@@ -1,6 +1,7 @@
 package com.example.room_1
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -10,19 +11,16 @@ import com.example.room_1.ui.MainActivityViewModel
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainActivityViewModel
-    private var list = mutableListOf<Task>()
-  //  private lateinit var adapter: TaskAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         viewModel = ViewModelProviders.of(this).get(MainActivityViewModel::class.java)
-
+        viewModel.setContext(this)
         viewModel.getLiveData().observe(this, Observer {
-            list.clear()
-            list.addAll(it)
-         //   adapter.notifyDataSetChanged()
-        })
+            Log.e("MainActivity", "list size: " + it!!.size)
 
+        })
+        fetchAllTasks()
     }
 
     fun addTask(task: Task) {
@@ -37,16 +35,12 @@ class MainActivity : AppCompatActivity() {
         viewModel.deleteTask(task)
     }
 
-    fun updateData(old_task: Task, new_task: Task) {
-        viewModel.updateData(old_task, new_task)
-    }
-
-    fun referesh() {
-        viewModel.referesh()
-    }
-
-    fun fetchAllTasks(): MutableList<Task> {
+    fun fetchAllTasks() {
         return viewModel.fetchAllTasks()
+    }
+
+    fun getMainActivityViewModel(): MainActivityViewModel {
+        return viewModel
     }
 
 }

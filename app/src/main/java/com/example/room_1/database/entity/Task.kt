@@ -21,5 +21,5 @@ data class Task(
     var finished: Boolean
 ) : Parcelable {
 
-   // constructor() : this(0, "", "", "")
+   constructor() : this(0, "", "", "",false)
 }

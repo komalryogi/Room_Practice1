@@ -11,11 +11,11 @@ interface TaskDao {
     fun getAllTasks(): MutableList<Task>
 
     @Insert
-    fun insert(task: Task)
+    fun insert(task: Task):Long
 
     @Update
-    fun update(task: Task)
+    fun update(task: Task):Int
 
     @Delete
-    fun delete(task: Task)
+    fun delete(task: Task):Int
 }

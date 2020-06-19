@@ -1,62 +1,59 @@
 package com.example.room_1.ui
 
 import android.content.Context
-import androidx.lifecycle.LiveData
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.room_1.database.AppDataBase
 import com.example.room_1.database.entity.Task
 
-class MainActivityViewModel(context: Context) : ViewModel() {
+class MainActivityViewModel : ViewModel() {
 
     private var liveData = MutableLiveData<MutableList<Task>>()
-    private var dataBase: AppDataBase
-    private var context: Context
+    private lateinit var dataBase: AppDataBase
+    private lateinit var context: Context
 
-    init {
+
+    fun setContext(context: Context) {
         this.context = context
         dataBase = AppDataBase.getInstance(context)
+
     }
 
-    fun getLiveData(): LiveData<MutableList<Task>> {
+    fun getLiveData(): MutableLiveData<MutableList<Task>> {
         return liveData
     }
 
     fun addTask(task: Task) {
+
         Thread {
-            dataBase.taskDao().insert(task)
+            val insert = dataBase.taskDao().insert(task)
+            Log.e("MAIN_VM", "insert: $insert")
+
         }.start()
     }
 
     fun updateTask(task: Task) {
         Thread {
-            dataBase.taskDao().update(task)
+            val update = dataBase.taskDao().update(task)
+            Log.e("MAIN_VM", "update: $ update" )
         }.start()
     }
 
     fun deleteTask(task: Task) {
         Thread {
-            dataBase.taskDao().delete(task)
+            val delete = dataBase.taskDao().delete(task)
+            Log.e("MAIN_VM", "delete: $delete")
+
         }.start()
     }
 
-    fun updateData(old_task: Task, new_task: Task) {
-        val value = liveData.value
-        val indexOf = value!!.indexOf(old_task)
-        value.set(indexOf, new_task)
-        liveData.value = value
-    }
-
-    fun referesh() {
-        fetchAllTasks()
-    }
-
-    fun fetchAllTasks(): MutableList<Task> {
-        val allTasks = null
+    fun fetchAllTasks() {
+        val allTasks = mutableListOf<Task>()
         Thread {
-            dataBase.taskDao().getAllTasks()
-            liveData.postValue(allTasks)
+            val value = dataBase.taskDao().getAllTasks()
+            liveData.postValue(value)
         }.start()
-        return allTasks!!
+
     }
 }

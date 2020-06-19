@@ -1,16 +1,21 @@
 package com.example.room_1.ui.home
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.room_1.MainActivity
 import com.example.room_1.database.entity.Task
 
 class HomeFragmentViewModel : ViewModel() {
 
-    fun getLiveData(mainActivity: MainActivity): MutableList<Task> {
-        return mainActivity.fetchAllTasks()
+    private lateinit var liveData: LiveData<MutableList<Task>>
+
+    fun getLiveData(): LiveData<MutableList<Task>> {
+        return liveData
     }
 
-    fun updateUi(){
-
+    fun initData(data: MutableLiveData<MutableList<Task>>) {
+        liveData = data
     }
+
+
 }
